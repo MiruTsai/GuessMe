@@ -55,6 +55,7 @@ function filterQuiz(currentQuestion) {
 
 function gameOver() {
     alert('遊戲結束,恭喜答對：' + right + ' 題，答錯：' + wrong + ' 題');
+    window.location.reload();
 }
 
 function changePic() {
