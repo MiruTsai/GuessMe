@@ -23,10 +23,10 @@ function createElement(tag, className, text = "") {
 
 function createButton() {
     yuris.sort(() => Math.random() - 0.5);
-    row.innerHTML="";
+    row.innerHTML = "";
     for (let i = 0; i < yuris.length; i++) {
         let obj = createElement('button', 'option', yuris[i]);
-        obj.addEventListener('click',function(){checkAnswer(yuris[i])})
+        obj.addEventListener('click', function () { checkAnswer(yuris[i]) })
         row.appendChild(obj)
     }
 }
@@ -38,15 +38,25 @@ function checkAnswer(name) {
         alert('wrong');
         wrong++;
     }
-    filterQuiz(currentAnswer);
-    init();
+    filterQuiz(currentQuestion);
+    if (souces.length) {
+        init();
+    } else {
+        gameOver();
+        return;
+    }
 }
 
-function filterQuiz(currentQuestion){
-    souces = souces.filter(souce=>{
+function filterQuiz(currentQuestion) {
+    souces = souces.filter(souce => {
         return souce.question !== currentQuestion
     })
 }
+
+function gameOver() {
+    alert('遊戲結束,恭喜答對：' + right + ' 題，答錯：' + wrong + ' 題');
+}
+
 function changePic() {
     souces.sort(() => Math.random() - 0.5);
     currentQuestion = souces[0].question;
