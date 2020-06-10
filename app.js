@@ -72,7 +72,7 @@ let sources = [
         question: 'yuri7.jpg',
         answer: 'Yuri'
     },{
-        question: 'other1.jpg',
+        question: 'others1.jpg',
         answer: 'Others'
     },{
         question: 'others2.jpg',
