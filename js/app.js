@@ -3,13 +3,13 @@ const pic = document.querySelector('.question');
 const yuris = ['Chaewon', 'Yena', 'Yuri', 'Others'];
 let currentAnswer = '';
 let currentQuestion = '';
-let right = 0, wrong = 0;
+let right = 0, wrong = 0, progress;
 
 function createButton() {
     yuris.sort(() => Math.random() - 0.5);
     row.innerHTML = "";
     for (let i = 0; i < yuris.length; i++) {
-        let obj = createElement('button', 'option', yuris[i]);
+        let obj = createElement('button', 'btn btn-default option', yuris[i]);
         obj.addEventListener('click', function () { checkAnswer(yuris[i]) })
         row.appendChild(obj)
     }
@@ -23,11 +23,12 @@ function changePic() {
 }
 
 function checkAnswer(name) {
+    clearInterval();
     if (name === currentAnswer) {
         alert('Bingo');
         right++;
     } else {
-        alert('wrong');
+        alert('Wrong');
         wrong++;
     }
     filterQuiz(currentQuestion);
@@ -35,6 +36,7 @@ function checkAnswer(name) {
 }
 
 function nextQuiz() {
+    clearInterval(progress);
     if (sources.length) {
         init();
     } else {
@@ -54,14 +56,34 @@ function gameOver() {
     window.location.reload();
 }
 
-function pause(){
+function pause() {
     alert('您目前答對：' + right + ' 題，答錯：' + wrong + ' 題')
+}
+
+function timing() {
+    progress = setInterval(move, 50);
+    let width = 100;
+    function move() {
+        let timeRemain = document.querySelector('.timeRemain');
+        if (width === 0) {
+            clearInterval(progress);            
+            filterQuiz(currentQuestion);
+            alert('Wrong');
+            nextQuiz();
+            wrong++;
+            width = 100;
+        } else {
+            width--
+            timeRemain.style.width = width + "%";
+        }
+    }
 }
 
 function init() {
     // getData();
     createButton();
-    changePic()
+    changePic();
+    timing();
 }
 
 window.addEventListener('DOMContentLoaded', init)
