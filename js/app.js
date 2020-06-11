@@ -83,7 +83,7 @@ function init() {
     // getData();
     createButton();
     changePic();
-    timing();
+    pic.addEventListener('load',timing);
 }
 
 window.addEventListener('DOMContentLoaded', init)
